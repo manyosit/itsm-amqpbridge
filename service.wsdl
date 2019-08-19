@@ -73,10 +73,10 @@
     <!-- SERVICE:  -->
     <wsdl:service name="MessageSplitterService">
         <wsdl:port name="MessageSplitterServiceSoapPort" binding="tns:MessageSplitterServiceSoapBinding">
-            <soap:address location="http://localhost:8000/wsdl"/>
+            <soap:address location="http://localhost:3000/wsdl"/>
         </wsdl:port>
         <wsdl:port name="MessageSplitterServiceSoap12Port" binding="tns:MessageSplitterServiceSoap12Binding">
-            <soap12:address location="http://localhost:8000/wsdl"/>
+            <soap12:address location="http://localhost:3000/wsdl"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
