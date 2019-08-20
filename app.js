@@ -33,7 +33,7 @@ var serviceObject = {
 };
 
 // load the WSDL file
-var xml = fs.readFileSync('serviceMQ.wsdl', 'utf8');
+var xml = fs.readFileSync('service.wsdl', 'utf8');
 // create express app
 var app = express();
 
@@ -41,8 +41,7 @@ var app = express();
 app.get('/', function (req, res) {
     console.log('sd');
     res.send('Node Soap Example!<br /><a href="https://github.com/macogala/node-soap-example#readme">Git README</a>');
-    amqp.publishToQueue('remedy', "test");
-})
+});
 
 // Launch the server and listen
 var port = 3000;
