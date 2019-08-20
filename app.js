@@ -33,7 +33,7 @@ var serviceObject = {
 };
 
 // load the WSDL file
-var xml = fs.readFileSync('serviceMQ.wsdl', 'utf8');
+var xml = fs.readFileSync('service.wsdl', 'utf8');
 // create express app
 var app = express();
 
