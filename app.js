@@ -1,46 +1,47 @@
 /*jslint node: true */
 "use strict";
 
+require('dotenv').config();
+const log = require ('./logger.js');
+
+const mq = require('./amqp.js');
 
 var soap = require('soap');
 var express = require('express');
 var fs = require('fs');
 
 // the splitter function, used by the service
-function splitter_function(args) {
-    console.log('splitter_function');
-    var splitter = args.splitter;
-    var splitted_msg = args.message.split(splitter);
-    var result = [];
-    for(var i=0; i<splitted_msg.length; i++){
-        result.push(splitted_msg[i]);
-    }
+function send2queue_function(args) {
+    log.debug('send2queue_function', args);
+    mq.publishMessage(args.exchange, args.routingKey, args.message);
     return {
-        result: result
+        status: "success",
+        message: "alles gut"
     }
 }
 
 // the service
 var serviceObject = {
-    MessageSplitterService: {
-        MessageSplitterServiceSoapPort: {
-            MessageSplitter: splitter_function
+    MessageQueueService: {
+        MessageQueueServiceSoapPort: {
+            MessageQueue: send2queue_function
         },
-        MessageSplitterServiceSoap12Port: {
-            MessageSplitter: splitter_function
+        MessageQueueServiceSoap12Port: {
+            MessageQueue: send2queue_function
         }
     }
 };
 
-
 // load the WSDL file
-var xml = fs.readFileSync('service.wsdl', 'utf8');
+var xml = fs.readFileSync('serviceMQ.wsdl', 'utf8');
 // create express app
 var app = express();
 
 // root handler
 app.get('/', function (req, res) {
+    console.log('sd');
     res.send('Node Soap Example!<br /><a href="https://github.com/macogala/node-soap-example#readme">Git README</a>');
+    amqp.publishToQueue('remedy', "test");
 })
 
 // Launch the server and listen
@@ -51,3 +52,12 @@ app.listen(port, function () {
     soap.listen(app, wsdl_path, serviceObject, xml);
     console.log("Check http://localhost:" + port + wsdl_path +"?wsdl to see if the service is working");
 });
+
+mq.connect();
+
+/*setTimeout(function() {
+    mq.publishMessage('sda','adsd', 'ads');
+    //connection.close();
+    //process.exit(0)
+}, 1000);*/
+
