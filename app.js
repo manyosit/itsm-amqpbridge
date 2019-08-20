@@ -25,9 +25,6 @@ var serviceObject = {
     MessageQueueService: {
         MessageQueueServiceSoapPort: {
             MessageQueue: send2queue_function
-        },
-        MessageQueueServiceSoap12Port: {
-            MessageQueue: send2queue_function
         }
     }
 };
