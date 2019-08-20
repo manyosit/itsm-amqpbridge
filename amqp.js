@@ -10,7 +10,7 @@ function publishMessage(exchangeName, routingKey, messageText) {
     routingKey = routingKey || process.env.ROUTINGKEY || 'mys.soapgateway.undefined';
     const exchangeType = process.env.EXCHANGE_TYPE || 'topic'
 
-    log.debug ('connection status', connection.initialized);
+    log.debug ('connection status', connection.isConnected);
 
     log.debug ('setup exchange', exchangeName);
     const exchange = connection.declareExchange(exchangeName, exchangeType);
@@ -31,4 +31,3 @@ function connect() {
 module.exports = {
     publishMessage, connect
 };
-
