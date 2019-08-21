@@ -9,6 +9,7 @@ let channelWrapper = null;
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
+
 let timeoutCounter = 0;
 const maxHeartbeat = 10;
 
@@ -19,24 +20,38 @@ function publishMessage(exchangeName, routingKey, messageText) {
 
     log.debug ('setup exchange', exchangeName);
 
+    //channelWrapper.assertExchange(exchangeName, exchangeType);
+    //channelWrapper.bind()
+
     log.debug('queueLength', channelWrapper.queueLength());
     log.debug('connStatus', connection.isConnected());
     log.debug('use routing', routingKey);
     log.debug('send message', messageText);
 
     return new Promise(function(resolve, reject) {
-        if (!connection.isConnected()) {
-            reject('MQ Server not connected');
-        } else {
-            resolve(channelWrapper.publish(exchangeName, routingKey, Buffer.from(messageText), msgOptions));
-        }
+        channelWrapper.addSetup(function(channel) {
+            return Promise.all([
+                channel.assertExchange(exchangeName, exchangeType, {})
+            ])
+        }).then(function () {
+            if (!connection.isConnected()) {
+                reject('MQ Server not connected');
+            } else {
+                resolve(channelWrapper.publish(exchangeName, routingKey, Buffer.from(messageText), msgOptions));
+            }
+        }).catch(error => {
+            reject('exchange not ready', exchangeName, error);
+        });
     });
 }
 
+function handleMessage(message) {
+    log.debug ('incomming', message);
+}
 
 function connect() {
 
-    connection = new amqp.connect("amqp://rabbitmq:rabbitmq@pier1");
+    connection = new amqp.connect(process.env.MQ_CONNECTION);
     // Ask the connection manager for a ChannelWrapper.  Specify a setup function to
     // run every time we reconnect to the broker.
     channelWrapper = connection.createChannel({
@@ -47,6 +62,7 @@ function connect() {
             //return channel.assertQueue('rxQueueName', {durable: true});
         }
     });
+
     connection.on('connect', ( err ) => {
         log.debug('connect', err);
         timeoutCounter = 0;
