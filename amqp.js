@@ -6,10 +6,6 @@ const amqp = require('amqp-connection-manager');
 let connection = null;
 let channelWrapper = null;
 
-const events = require('events');
-const eventEmitter = new events.EventEmitter();
-
-
 let timeoutCounter = 0;
 const maxHeartbeat = 10;
 
@@ -43,10 +39,6 @@ function publishMessage(exchangeName, routingKey, message) {
             reject('exchange not ready', exchangeName, error);
         });
     });
-}
-
-function handleMessage(message) {
-    log.debug ('incomming', message);
 }
 
 function connect() {
