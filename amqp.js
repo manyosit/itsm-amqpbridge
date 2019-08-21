@@ -13,7 +13,7 @@ const eventEmitter = new events.EventEmitter();
 let timeoutCounter = 0;
 const maxHeartbeat = 10;
 
-function publishMessage(exchangeName, routingKey, messageText) {
+function publishMessage(exchangeName, routingKey, message) {
     exchangeName = exchangeName || process.env.EXCHANGE || 'mys.soapgateway';
     routingKey = routingKey || process.env.ROUTINGKEY || 'mys.soapgateway.undefined';
     const exchangeType = process.env.EXCHANGE_TYPE || 'topic'
@@ -26,7 +26,7 @@ function publishMessage(exchangeName, routingKey, messageText) {
     log.debug('queueLength', channelWrapper.queueLength());
     log.debug('connStatus', connection.isConnected());
     log.debug('use routing', routingKey);
-    log.debug('send message', messageText);
+    log.debug('send message', message);
 
     return new Promise(function(resolve, reject) {
         channelWrapper.addSetup(function(channel) {
@@ -37,7 +37,7 @@ function publishMessage(exchangeName, routingKey, messageText) {
             if (!connection.isConnected()) {
                 reject('MQ Server not connected');
             } else {
-                resolve(channelWrapper.publish(exchangeName, routingKey, Buffer.from(messageText), msgOptions));
+                resolve(channelWrapper.publish(exchangeName, routingKey, message, msgOptions));
             }
         }).catch(error => {
             reject('exchange not ready', exchangeName, error);
