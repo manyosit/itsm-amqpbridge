@@ -10,7 +10,7 @@ const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
 let timeoutCounter = 0;
-const maxHeartbeat = 15;
+const maxHeartbeat = 10;
 
 function publishMessage(exchangeName, routingKey, messageText) {
     exchangeName = exchangeName || process.env.EXCHANGE || 'mys.soapgateway';
@@ -18,14 +18,11 @@ function publishMessage(exchangeName, routingKey, messageText) {
     const exchangeType = process.env.EXCHANGE_TYPE || 'topic'
 
     log.debug ('setup exchange', exchangeName);
-    //const exchange = connection.declareExchange(exchangeName, exchangeType);
-    //channelWrapper.assertExchange(exchangeName, exchangeType);
-    //channelWrapper.assertExchange(exchangeName,exchangeType);
 
-    log.debug('use routing', routingKey);
-    log.debug ('send message', messageText);
-    log.debug('queueL', channelWrapper.queueLength());
+    log.debug('queueLength', channelWrapper.queueLength());
     log.debug('connStatus', connection.isConnected());
+    log.debug('use routing', routingKey);
+    log.debug('send message', messageText);
 
     return new Promise(function(resolve, reject) {
         if (!connection.isConnected()) {

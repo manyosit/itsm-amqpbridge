@@ -14,7 +14,7 @@ var fs = require('fs');
 function send2queue_function(args) {
     return new Promise((resolve) => {
         mq.publishMessage(args.exchange, args.routingKey, args.message).then(function () {
-            log.debug('yeah');
+            log.debug('Yeah, message sent');
             resolve ({
                 status: "success",
                 message: "Message delivered to MQ"
@@ -63,10 +63,3 @@ app.listen(port, function () {
 });
 
 mq.connect();
-
-/*setTimeout(function() {
-    mq.publishMessage('sda','adsd', 'ads');
-    //connection.close();
-    //process.exit(0)
-}, 1000);*/
-
