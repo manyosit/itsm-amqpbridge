@@ -12,12 +12,21 @@ var fs = require('fs');
 
 // the splitter function, used by the service
 function send2queue_function(args) {
-    log.debug('send2queue_function', args);
-    mq.publishMessage(args.exchange, args.routingKey, args.message);
-    return {
-        status: "success",
-        message: "alles gut"
-    }
+    return new Promise((resolve) => {
+        mq.publishMessage(args.exchange, args.routingKey, args.message).then(function () {
+            log.debug('yeah');
+            resolve ({
+                status: "success",
+                message: "Message delivered to MQ"
+            });
+        }).catch(error => {
+            log.debug('Oh no', error);
+            resolve( {
+                status: "error",
+                message: String(error)
+            });
+        });
+    });
 }
 
 // the service
@@ -31,6 +40,7 @@ var serviceObject = {
         }
     }
 };
+
 
 // load the WSDL file
 var xml = fs.readFileSync('service.wsdl', 'utf8');
