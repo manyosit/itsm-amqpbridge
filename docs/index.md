@@ -26,6 +26,21 @@ Endpoint-Url: http://yourhost:3000/wsdl
 {: .box-warning}
 **Warning:** The bridge does currently not provide authentication for incomming requests. You should ensure on networt/firewall level that it can only be reached from the AR System server.
 
+# Deployment
+
+The easiest deployment option is via docker.
+
+{% highlight yaml linenos %}
+version: '3.4' 
+services: 
+  node: 
+    image: manyos/itsm-amqpbridge
+    restart: always
+    environment:
+      - LOGLEVEL=info
+      - MQ_CONNECTION=amqp://rabbitmq:8fdsu82@rabbitserver
+{% endhighlight %}
+
 # Configuration
 
 The following Environment Variables can be used to change the behaviour of the Monitor API. 
