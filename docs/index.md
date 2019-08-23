@@ -17,6 +17,8 @@ Table of Content
 
 Our bridge allows you to create messages in AMQP Broker via filter workflow. It provides a SOAP-Endpoint that can be addressed.
 
+![set fields](img/architecture.png)
+
 The api listens on port 3000.
 
 WSDL-Url: http://yourhost:3000/wsdl?wsdl
@@ -58,7 +60,7 @@ The following Environment Variables can be used to change the behaviour of the M
 
 You can send a message with a **Set Fields** filter action. You can provide values for *exchange*, *routingKey* and *message*. Only *message* is required.
 
-![useful image](img/set-fields.png)
+![set fields](img/set-fields.png)
 
 # Known issues
 
