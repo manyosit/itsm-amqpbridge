@@ -17,7 +17,7 @@ Table of Content
 
 Our bridge allows you to create messages in AMQP Broker via filter workflow. It provides a SOAP-Endpoint that can be addressed.
 
-![set fields](img/architecture.png)
+![architecture](img/architecture.png)
 
 The api listens on port 3000.
 
