@@ -44,3 +44,11 @@ The following Environment Variables can be used to change the behaviour of the M
 You can send a message with a **Set Fields** filter action. You can provide values for *exchange*, *routingKey* and *message*. Only *message* is required.
 
 ![useful image](img/set-fields.png)
+
+# Known issues
+
+The way remedy deals with Webservices can messages published twice on the exchange.
+
+The behaviour is described here https://communities.bmc.com/docs/DOC-48090
+
+You can fix it if you change the *soapsequence* setting to either *Soap11-Only* or *Soap21-Only*.
