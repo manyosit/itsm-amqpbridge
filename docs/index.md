@@ -1,7 +1,7 @@
 ---
 layout: page
-title: AR-Monitor documention
-subtitle: Learn how to monitor your BMC ITSM Applications
+title: ITSM AMQP-Bridge documention
+subtitle: Learn how to send messages from your BMC ITSM Applications to AMQP Brokers 
 use-site-title: true
 bigimg: /img/bg-bridge.jpg
 ---
