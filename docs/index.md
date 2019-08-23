@@ -62,6 +62,15 @@ You can send a message with a **Set Fields** filter action. You can provide valu
 
 ![set fields](img/set-fields.png)
 
+# Sample Workflow
+
+The following sample workflow adds a new form and 3 filter to your system. The filter *MYS:SoapGW_PrepareMessage* creates a soap message from some form fields. The message is stored in the field *mqMessage*. The filter *MYS:SoapGW_Call* tries to send the message. Errors are handled with the filter *MYS:SoapGW_ErrorHandler*. This ensures that your transaction does not fail. In case of an error the field *mqResponseStatus* is set to error and *mqResponse* will have the error details in it.
+  
+* [amqpbridge-sample.def](sample/amqpbridge-sample.def)
+
+{: .box-note}
+**Note:** You need to change the endpoint address in the filter *MYS:SoapGW_Call* before you can use the sample workflow.
+
 # Known issues
 
 The way remedy deals with Webservices can messages published twice on the exchange.
