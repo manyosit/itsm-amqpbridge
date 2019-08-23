@@ -1,6 +1,6 @@
 ---
 layout: page
-title: ITSM AMQP-Bridge documention
+title: AMQP-Bridge documention
 subtitle: Learn how to send messages from your BMC ITSM Applications to AMQP Brokers 
 use-site-title: true
 bigimg: /img/bg-bridge.jpg
