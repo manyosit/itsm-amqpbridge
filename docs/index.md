@@ -26,7 +26,7 @@ WSDL-Url: http://yourhost:3000/wsdl?wsdl
 Endpoint-Url: http://yourhost:3000/wsdl
 
 {: .box-warning}
-**Warning:** The bridge does currently not provide authentication for incomming requests. You should ensure on networt/firewall level that it can only be reached from the AR System server.
+**Warning:** The bridge does currently not provide authentication for incomming requests. You should ensure on network/firewall level that it can only be reached from the AR System server.
 
 # Deployment
 
@@ -73,7 +73,7 @@ The following sample workflow adds a new form and 3 filter to your system. The f
 
 # Known issues
 
-The way remedy deals with Webservices can messages published twice on the exchange.
+The way remedy deals with Webservices can cause messages to be published twice on the exchange.
 
 The behaviour is described here <https://communities.bmc.com/docs/DOC-48090>
 
