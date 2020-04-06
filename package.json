@@ -5,16 +5,17 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha || true",
+    "dev": "nodemon app.js | bunyan",
     "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "amqp-connection-manager": "^3.0.0",
+    "amqp-connection-manager": "^3.2.0",
     "amqplib": "^0.5.5",
     "bunyan": "^1.8.12",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "soap": "^0.29.0"
   }
